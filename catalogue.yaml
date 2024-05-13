@@ -28,7 +28,7 @@
   - name: check app directory is already exits or not
     ansible.builtin.stat:
       path: /app
-      register: directory
+    register: directory
 
   - name: printing the status of directory
     ansible.builtin.debug:
