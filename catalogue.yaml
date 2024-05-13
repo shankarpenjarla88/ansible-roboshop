@@ -9,17 +9,21 @@
     ansible.builtin.yum:
       name: nodejs
       state: installed
+      
   - name: checking if user is already created
     ansible.builtin.command: id roboshop
     register: output
     ignore_errors: yes
+
   - name: printing the exiting status
     ansible.builtin.debug:
       msg: "{{output.rc}}"
-  - name: creating the roboshop user
+
+  - when: output.rc!=0 
+    name: creating the roboshop user
     ansible.builtin.user:
       name: roboshop
-    - when: output.rc!=0
+
     
 
 
