@@ -35,7 +35,7 @@
     ansible.builtin.debug:
      msg: "{{directory}}"
 
-  - when: directory.stat.exits != true
+  - when: directory.stat.exits == false
     name: creating app directory
     ansible.builtin.file:
       path: /app
