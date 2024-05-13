@@ -46,51 +46,5 @@
       url:  https://roboshop-builds.s3.amazonaws.com/catalogue.zip
       dest: /tmp/
   
-  - name: Extraxt the artifact
-    ansible.builtin.unarchive:
-      src: /tmp/catalogue.zip
-      dest: /app
-      remote_src: yes
-
-  - name: Install dependencies
-    ansible.builtin.command: npm install
-    args:
-      chdir: /app
-
-  - name: copy catalogue service
-    ansible.builtin.copy:
-      src: catalogue.service
-      dest: /etc/systemd/system/catalogue.service
-
-  - name: deamon-reload
-    ansible.builtin.systemd:
-      state: restarted
-      daemon-reload: true
-      name: crond
-
-  - name: copy of mongo.repo to yum.repos.d
-    ansible.builtin.copy:
-      src: mongo.repo
-      dest: /etc/yum.repos.d/mongo.repo
-
-  - name: Installing Mongodb
-    ansible.builtin.yum:
-      name: mongodb-org-shell
-      state: installed
-
-  - name: Loading Schema
-    ansible.builtin.command: mongo --host mongodb.lxio.online </app/schema/catalogue.js
-
-  - name: Restarting the catalogue
-    ansible.builtin.service:
-      name: catalogue
-      state: restarted
-      enabled: true
-    
-
   
-
-
-    
-
 
