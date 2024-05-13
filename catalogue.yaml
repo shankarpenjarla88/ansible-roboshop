@@ -5,6 +5,7 @@
   - name: setting up NPM source
      # Here -sL stands shell we are runnning shell,So we using ansible.builtin.shell
     ansible.builtin.shell: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash"
+
   - name: Install Nodejs
     ansible.builtin.yum:
       name: nodejs
@@ -36,6 +37,7 @@
 
   - when: directory.stat.exits != 'true'
     name: creating app directory
+    ansible.builtin.file:
       path: /app
       state: directory
 
