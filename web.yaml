@@ -1,0 +1,39 @@
+- name: Installing web component
+  hosts: mongodb
+  become: yes
+  tasks:
+  - name: Installing nginx
+    ansible.builtin.yum:
+      name: nginx
+      state: installed
+  - name: Enabling and starting the nginx service
+    ansible.builtin.service:
+      name: nginx
+      state: started
+      enabled: yes
+      # Here we are removing the directory and creating  again
+  - name: remove html directory
+    ansible.builtin.file:
+      path: /usr/share/nginx/html/
+      state: absent
+  - name: creating the html directory
+    ansible.builtin.file:
+      path: /usr/share/nginx/html/
+      state: directory
+  - name: download web-artifact
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/web.zip
+      dest: /tmp/
+  - name: extarct the web-artifact
+    ansible.builtin.unarchive:
+      src: /tmp/web.zip
+      dest: /app
+      remote_src: yes
+  - name: copy of roboshopconfiguration file
+    ansible.builtin.copy:
+      src: roboshop.conf
+      dest: /etc/nginx/default.d/roboshop.conf 
+  - name: Restarting the nginx service
+    ansible.builtin.service:
+      name: nginx
+      state: restarted
