@@ -9,7 +9,7 @@
     ansible.builtin.yum:
       name: nodejs
       state: installed
-      
+
   - name: checking if user is already created
     ansible.builtin.command: id roboshop
     register: output
@@ -23,6 +23,19 @@
     name: creating the roboshop user
     ansible.builtin.user:
       name: roboshop
+    
+    # Here stat means status, which means get information about filesytem or directory(folders)
+  - name: check app directory is already exits or not
+    ansible.builtin.stat:
+      path: /app
+      register: directory
+
+  - name: printing the status of directory
+    ansible.builtin.debug:
+     msg: "{{directory}}"
+
+  
+
 
     
 
