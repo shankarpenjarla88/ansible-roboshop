@@ -79,7 +79,7 @@
       state: installed
 
   - name: Loading Schema
-    ansible.builtin.command: mongo --host MONGODB-SERVER-IPADDRESS </app/schema/catalogue.js
+    ansible.builtin.command: mongo --host mongodb.lxio.online </app/schema/catalogue.js
 
   - name: Restarting the catalogue
     ansible.builtin.service:
