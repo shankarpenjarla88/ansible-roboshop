@@ -39,7 +39,8 @@
     name: creating app directory
     ansible.builtin.file:
       path: /app
-      state: directory
+      state: 
+    ignore_errors: yes
 
   
 
