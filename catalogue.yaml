@@ -1,5 +1,5 @@
 - name: configuring catalogue component
-  hosts: catalogue
+  hosts: localhost
   become: yes
   tasks:
   - name: setting up NPM source
