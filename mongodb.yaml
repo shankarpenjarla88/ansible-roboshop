@@ -1,5 +1,5 @@
 - name: Installing mongodb component
-  hosts: mongodb
+  hosts: localhost
   become: yes
   tasks:
   - name: copy mongo repo to yum.repo.d
