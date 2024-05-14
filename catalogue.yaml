@@ -39,7 +39,7 @@
     name: creating app directory
     ansible.builtin.file:
       path: /app
-      state: absent
+      state: directory
 
   - name: Download the artifact
     ansible.builtin.get_url:
